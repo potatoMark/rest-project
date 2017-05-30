@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace必须是接口的全类名  -->
+<mapper namespace="com.fujitsu.cn.iot.console.mapper.MeterMapper">
+
+	<select id="queryMeter"  resultType="com.fujitsu.cn.iot.console.common.dto.impl.BaseDto"
+							parameterType="com.fujitsu.cn.iot.console.common.dto.impl.BaseDto">
+		select
+                id,
+				Level1,
+				MetCd,
+				MetNm,
+				DevTyp,
+				ADD_USR,
+				ADD_TM,
+				UPD_USR,
+				UPD_TM
+		  from t_meter
+		  where 1 = 1
+	    <if test="Level1 != '' and Level1 != null ">
+		    and Level1 = #{Level1}
+	    </if>
+	    <if test="MetCd != '' and MetCd != null ">
+		    and MetCd = #{MetCd}
+	    </if>
+		<if test="(Start != '' and Start != null and End != '' and End != null) or (Start == 0 or End == 0) ">
+			limit #{Start},#{End}
+		</if>
+
+	</select>
+
+</mapper>
